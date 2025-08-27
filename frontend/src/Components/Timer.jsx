@@ -35,6 +35,7 @@ function Timer ()
         //The Prev allows us to use the newer instance of the timeLeft variable
         setTimeLeft(prev => {
         console.log("Updated time to", prev - 1);
+        //Hello
         return prev - 1;
         });
 
