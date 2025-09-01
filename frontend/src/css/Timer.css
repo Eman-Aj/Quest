@@ -1,0 +1,12 @@
+.timer-Focus {
+    font-size: 100px;
+    color: red;
+}
+.timer-Break {
+    font-size: 100px;
+    color: Green;
+}
+.timer-Long {
+    font-size: 100px;
+    color: gray;
+}
