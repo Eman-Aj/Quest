@@ -4,6 +4,10 @@
   padding: 2rem;
   text-align: center;
 }
+
+.notify-button{
+  background-color: red;
+}
 /*
 .logo {
   height: 6em;

@@ -7,9 +7,29 @@ import Timer from './Components/Timer'
 
 function App() {
 
+  const notify = (text) => {
+
+    alert(text)
+
+    // if (localStorage.notify == 'true') {
+    //   if ( Notification.permission == 'granted') {
+
+    //   }else if  (Notification.permission !== 'granted') {}
+    // } 
+
+    // var noti = new Notification('Example Text', {
+    //   body:'Greetings'
+    // })
+
+
+  }
+
   return (
     <>
-      <Timer />
+
+      {/* <button className='notify-button' onClick={() => {localStorage.setItem('notify', 'true')}}> Recienve notifications</button> */}
+
+      <Timer sendNotification={notify} />
     </>
   )
 }
