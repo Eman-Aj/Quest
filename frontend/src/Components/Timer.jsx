@@ -19,7 +19,7 @@ function Timer ({sendNotification})
     const [duration, setDuration] = useState( 5)
     const [playing, setPlaying] = useState(false)
 
-    const [formattedTime, setFormattedTime] = useState("00:00")
+    const [formattedTime, setFormattedTime] = useState("0:00")
     
     const [clockText, setClockText] = useState("Start") //Start Pause Button Text
     const [stageNum, setStageNum] = useState(0) //Stage we're currently on internally
@@ -37,7 +37,7 @@ function Timer ({sendNotification})
         var sec = Math.floor(time % 60)
 
         sec = sec >= 10 ? ""+sec:"0"+sec
-        min = min >= 10 ? ""+min:"0"+min
+        // min = min >= 10 ? ""+min:"0"+min
 
         return(min + ":" + sec)
     }
@@ -106,6 +106,7 @@ function Timer ({sendNotification})
     const changeStage = (customStage, unatural) => {
         //Even==focus, odd==break, 5*k == Long break
         var newStage = stageNum + 1
+        var newStageText = "Focus"
         var initDuration = focusTime
         // console.log("Now at stage:", newStage)
 
@@ -114,23 +115,26 @@ function Timer ({sendNotification})
         if (Number.isInteger(customStage)) {newStage = customStage}  //Uses local first - Needs the iff or it's an infinite loop
 
         if ((newStage === 0) || (newStage % 2 === 0)) {
-            console.log("Focus", newStage)
+            // console.log("Focus", newStage)
             setStage("Focus")
+            newStageText = "Focus"
             initDuration = focusTime
             
         } else if (newStage === 5) {
-            console.log("Long break", newStage)
+            // console.log("Long break", newStage)
             setStage("Long")
+            newStageText = "Long Break"
             initDuration = longBreakTime
             
             setStageNum(0) //To restart the loop
         } else {
-            console.log("Normal break", newStage)
+            // console.log("Normal break", newStage)
             setStage("Break")
+            newStageText = "Break"
             initDuration = breakTime
         }
 
-        if (!unatural) {sendNotification("Stage Changed")}
+        if (!unatural) {sendNotification({"stage": newStageText, "time": formatTime(initDuration)})}
         
         startClock(initDuration)
     }

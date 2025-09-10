@@ -5,8 +5,11 @@
   text-align: center;
 }
 
-.notify-button{
-  background-color: red;
+.notify-button-on{
+  color: green;
+}
+.notify-button-off{
+  color: red;
 }
 /*
 .logo {
