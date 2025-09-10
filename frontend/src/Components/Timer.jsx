@@ -3,33 +3,12 @@ import { useState, useEffect, useRef } from "react"
 
 function Timer ({sendNotification})
 {
-    const devMode = true
+    const devMode = false
     const getDate = () => { return (Math.floor(Date.now() / 1000)) /* Displays in seconds*/}
     
-    /* 
-    Can't make this a state because...
-    useRef uses a mutable value that persisits across renders, but doesn't retrigger them
-    whatever that means...
-    Clearling the latest interval preventing reticking
-    */
+    //Use ref so that we don't have lingering intervals
     const clockInterval = useRef(null)
-
-    //ChatGPT helped with this portion - fixed my timing inconsistency
-    const [endTime, setEndTime] = useState(0)
-    const [duration, setDuration] = useState( 5)
-    const [playing, setPlaying] = useState(false)
-
-    const [formattedTime, setFormattedTime] = useState("0:00")
     
-    const [clockText, setClockText] = useState("Start") //Start Pause Button Text
-    const [stageNum, setStageNum] = useState(0) //Stage we're currently on internally
-    const [stage, setStage] = useState("Focus") //Visual rep of stage
-
-    const [breakTime, setBreakTime] = useState((devMode && 5) || 60 * 5)
-    const [focusTime, setFocusTime] = useState((devMode && 5) || 60 * 25)
-    const [longBreakTime, setLongBreakTime] = useState((devMode && 5) || breakTime * 3)
-
-
     //Self explainatory
     const formatTime = (time) => {
 
@@ -41,6 +20,21 @@ function Timer ({sendNotification})
 
         return(min + ":" + sec)
     }
+
+    const [clockText, setClockText] = useState("Start") //Start Pause Button Text
+    const [stageNum, setStageNum] = useState(0) //Stage we're currently on internally
+    const [stage, setStage] = useState("Focus") //Visual rep of stage
+
+    const [breakTime, setBreakTime] = useState((devMode && 5) || 60 * 5)
+    const [focusTime, setFocusTime] = useState((devMode && 5) || 60 * 25)
+    const [longBreakTime, setLongBreakTime] = useState((devMode && 5) || breakTime * 3)
+
+    //ChatGPT helped with this portion - fixed my timing inconsistency
+    const [endTime, setEndTime] = useState(0)
+    const [duration, setDuration] = useState((devMode && 5) || focusTime)
+    const [playing, setPlaying] = useState(false)
+
+    const [formattedTime, setFormattedTime] = useState(formatTime(focusTime))    
 
     //Uses the local endTime we send
     const updateClock = (initEndTime) => {
