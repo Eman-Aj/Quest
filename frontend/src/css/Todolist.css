@@ -1,0 +1,12 @@
+.check-button {
+    border-radius: 3px;
+    font-size: large;
+    margin: 3px;
+}
+
+
+.close-button {
+    font-size: large;
+    color: red;
+    margin: 3px;
+}

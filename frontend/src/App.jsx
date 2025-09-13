@@ -3,17 +3,24 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-import handleVisiblity from "./hooks/Visiblity";
+//Components
 import Timer from "./Components/Timer";
+import Todolist from "./Components/Todolist";
+
+//Hooks
+import handleVisiblity from "./hooks/Visiblity";
 import Notifications from "./hooks/Notifications";
 
 function App() {
   const [notifications, setNotification ] = useState(localStorage.getItem("notifications"))
   const {notify} = Notifications(); //Find Visibility Component Here
 
-  
+  localStorage.getItem("List") ? null : localStorage.setItem("List", JSON.stringify({"Hello":"Goodbye"}))
+
   return (
-    <>
+    <div
+    className="main-div"
+    >
       <button
         className={`notify-button-${notifications}`}
         onClick={() => {
@@ -34,7 +41,8 @@ function App() {
         Test Button
       </button>
       <Timer sendNotification={notify} />
-    </>
+      <Todolist />
+    </div>
   );
 }
 

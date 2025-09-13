@@ -5,12 +5,25 @@
   text-align: center;
 }
 
+* {
+  margin: 3px auto;
+}
 .notify-button-on{
   color: green;
 }
 .notify-button-off{
-  color: red;
+  color: rgb(255, 85, 0);
 }
+
+.main-div {
+  background-color: burlywood;
+  border-radius: 10px;
+}
+
+html {
+  background-color: rgb(176, 113, 53);
+}
+
 /*
 .logo {
   height: 6em;

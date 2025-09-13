@@ -1,12 +1,18 @@
 .timer-Focus {
     font-size: 100px;
-    color: red;
+    color: rgb(255, 89, 0);
 }
 .timer-Break {
     font-size: 100px;
-    color: Green;
+    color: rgb(128, 124, 0);
 }
 .timer-Long {
     font-size: 100px;
-    color: gray;
+    color: rgb(129, 100, 81);
+}
+
+.timer {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    max-width: 50%;
 }

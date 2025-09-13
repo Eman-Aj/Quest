@@ -138,7 +138,10 @@ function Timer ({sendNotification})
         {/* You can have conditional classnames*/}
         {/* !NOTICE we use ` it's not quotes */}
         <h2>{stage}</h2>
-        <h1 className={`timer-${stage}`}>{formattedTime}</h1>
+        <div className= "timer" >
+            <h1 className={`timer-${stage}`}>{formattedTime}</h1>
+        </div>
+        
         <button onClick={toggleClock}>{clockText}</button>
 
          <button onClick={() => {
