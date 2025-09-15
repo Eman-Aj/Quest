@@ -15,7 +15,7 @@ function App() {
   const [notifications, setNotification ] = useState(localStorage.getItem("notifications"))
   const {notify} = Notifications(); //Find Visibility Component Here
 
-  localStorage.getItem("List") ? null : localStorage.setItem("List", JSON.stringify({"Hello":"Goodbye"}))
+  localStorage.getItem("List") ==  null ? null : localStorage.setItem("List", JSON.stringify({}))
 
   return (
     <div

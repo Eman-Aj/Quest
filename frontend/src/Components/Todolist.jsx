@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
-import '../css/Todolist.css'
+import "../css/Todolist.css";
+import Listitem from "./ListItem";
 export default function Todolist({}) {
   const [newItemText, setNewItemText] = useState("");
   const [list, setList] = useState(JSON.parse(localStorage.getItem("List")));
-  const itemTemplate = {
-    text: "Name",
-    position: 0,
-    status: "checked",
-    id: "increment by 1",
-  };
 
   useEffect(() => {
     const newList = JSON.stringify(list);
@@ -18,18 +13,16 @@ export default function Todolist({}) {
   }, [list]);
 
   const getList = () => {
-    console.log(JSON.parse(localStorage.getItem("List")));
     return JSON.parse(localStorage.getItem("List"));
   };
 
   const createItem = (e) => {
     e.preventDefault();
-    
+
     const currentList = getList();
-    console.log(currentList);
     // const newItem = newItemText;
     const listSize = Object.keys(currentList).length;
-    
+
     const newItemId = "" + (listSize + 1);
     const newItemData = {
       text: newItemText,
@@ -40,23 +33,17 @@ export default function Todolist({}) {
     //Set a new item
     currentList[newItemId] = newItemData;
 
-    console.log(listSize, currentList);
-    
     //The use effect updates the data
     setList(currentList);
 
     setNewItemText("");
 
     console.log("Task:", newItemText, '"created"');
-    //Localstorage only stores strings
-    // localStorage.setItem("List", localStorage.getItem("List")["Test"])
   };
 
   const checkItem = (itemKey) => {
     var currentList = getList();
-
     currentList[itemKey].status = !currentList[itemKey].status;
-
     setList(currentList);
   };
 
@@ -66,10 +53,13 @@ export default function Todolist({}) {
     setList(currentList);
   };
 
+  const updateText = (itemKey, text) => {
+    var currentList = getList();
+    currentList[itemKey].text = text;
+    setList(currentList);
+  };
   return (
     <>
-      <div>This Is Your List</div>
-
       <form onSubmit={createItem}>
         <input
           placeholder="Enter Item"
@@ -81,31 +71,18 @@ export default function Todolist({}) {
         <button>Create</button>
       </form>
       {/*  ○↑↓● */}
+
       <div>
         {Object.entries(list).map(([key, value]) => (
-          <div key={key}>
-            {/* This is Check Button */}
-            <button
-              className="check-button"
-              onClick={() => {
-                checkItem(key);
-              }}
-            >
-              {/* Conditional Formatting for button */}
-              {value.status ? "●" : "○"}
-            </button>
-
-            {value.text}
-
-            <button
-              className="close-button"
-              onClick={() => {
-                removeItem(key);
-              }}
-            >
-              X
-            </button>
-          </div>
+          <Listitem
+            itemKey={key}
+            key={key}
+            text={value.text}
+            status={value.status}
+            updateText={updateText}
+            removeItem={removeItem}
+            checkItem={checkItem}
+          />
         ))}
       </div>
 
