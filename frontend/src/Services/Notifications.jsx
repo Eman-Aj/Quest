@@ -1,4 +1,4 @@
-import handleVisiblity from "./Visiblity";
+import handleVisiblity from "../hooks/Visiblity";
 import { useRef, useEffect } from "react";
 export default function Notifications() {
   const isVisible = handleVisiblity(); //We call the component once! and it returns that varying alue! COOL!

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Listitem({
   itemKey,
@@ -7,12 +7,26 @@ export default function Listitem({
   removeItem,
   updateText,
   checkItem,
+  reorder,
+  position
 }) {
   const [isEditing, setIsEditing] = useState(""); //Item Key
   const [itemText, setItemText] = useState(text);
 
+  const inputRef = useRef(null);
+  const focustInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }
+
+  useEffect(()=>{
+    focustInput()
+  },[isEditing])
+
   return (
     <>
+    {/* <>{position}</> */}
       <div className="list-item" key={itemKey}>
         {/* This is Check Button */}
         <button
@@ -35,6 +49,7 @@ export default function Listitem({
           >
             <input
               defaultValue={text}
+              ref={inputRef}
               onChange={(e) => {
                 setItemText(e.target.value);
               }}
@@ -58,6 +73,8 @@ export default function Listitem({
         >
           ✘
         </button>
+        <button onClick={() => {reorder(itemKey, -1)}}>↑</button>
+        <button onClick={() => {reorder(itemKey, 1)}}>↓</button>
       </div>
     </>
   );
